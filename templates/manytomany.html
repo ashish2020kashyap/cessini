@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>ManytoMany</title>
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Mass Mail Sender</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+ <li class="nav-item">
+                    <a class="nav-link active" href="/sendmail">SendMail</a>
+                </li>
+
+
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/about">About Us</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link active" href="/mailing">Mailing</a>
+                 </li>
+
+            </ul>
+
+
+
+
+                 {% if user.is_authenticated %}
+         <ul class="navbar-nav mr-1">
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Welcome {{request.user}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/logout">Logout</a>
+
+      </li>
+     </ul>
+
+ {% else %}
+
+
+
+
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+        </div>
+        </div>
+    </nav>
+
+
+<br>
+
+
+{% for i in campmail %}
+             {% for notes in i.camp.all %}
+    {{notes}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{notes.upload_file}}&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;{{notes.id}}<br>
+
+    {% endfor%}
+    {{i}}<br><br><br>
+    {% endfor%}
+
+
+
+<br>
+    <br><br><br>
+<h1 class="display-4 text-center">ManytoMany</h1><br><br><br>
+<div class="container">
+<div class="card">
+<article class="card-body mx-auto">
+
+
+ <form class="form"  method="get" enctype="multipart/form-data">
+   {% csrf_token %}
+  <div class="form-row">
+     <div class="form-group col-md-4">
+      <label for="username">Campaign Name</label>
+ {{ form.name }}
+          </div>
+     <div class="form-group col-md-4">
+      <label for="sender_name">Sender Name</label>
+      {{ form.sender_name}}
+     </div>
+           <div class="form-group col-md-4">
+      <label for="sender_email">Sender Email</label>
+      {{ form.sender_email }}
+           </div>
+           <div class="form-group col-md-4">
+      <label for="email_subject">Email Subject</label>
+      {{ form.email_subject }}
+           </div>
+
+
+          <div class="dropdown">
+              {% for i in campmail %}
+             {% for notes in i.camp.all %}
+              <label class="form-check-label" for="check">{{notes}}</label>
+              <input class="form-check-input mx-5" type="checkbox" id="check" value={{notes.id}}>  <br>
+                  {% endfor%}
+
+                  {% endfor%}
+
+          </div>
+
+
+  </div>
+
+
+
+
+
+
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+</article>
+</div>
+</div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>

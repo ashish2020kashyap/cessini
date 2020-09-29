@@ -1,0 +1,318 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Dashboard</title>
+
+</head>
+
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Mass Mail Sender</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+
+ <li class="nav-item">
+                    <a class="nav-link active" href="/sendmail">SendMail</a>
+                </li>
+
+
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="/about">About Us</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link active" href="/mailing">Mailing</a>
+                 </li>
+
+                  <li class="nav-item">
+                  <a class="nav-link active" href="/dashboard">Dashboard</a>
+                 </li>
+
+                   <li class="nav-item">
+                  <a class="nav-link active" href="/customer">Customer</a>
+                 </li>
+            </ul>
+
+
+
+
+                 {% if user.is_authenticated %}
+         <ul class="navbar-nav mr-1">
+       <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Welcome {{request.user}}
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="/logout">Logout</a>
+
+      </li>
+     </ul>
+
+ {% else %}
+
+
+
+
+
+
+{% endif %}
+
+
+
+
+
+        </div>
+        </div>
+    </nav>
+
+<br>
+    <h1>My Campaigns</h1>
+
+  {% for i in customerss.customer_camp.all %}
+
+    {{i}}
+
+    	{% endfor %}
+
+    <br>
+
+<br>
+       <h1>My Email List</h1>
+{% for i in customerss.customer_email.all %}
+    {{i}}
+    	{% endfor %}
+
+    <br>
+
+
+    <div class="container-fluid">
+
+
+    <div class="container">
+          <br><br>
+             <h1 class="display-4  text-center">Customer Information</h1>
+        <br><br>
+
+
+
+<table class="table">
+    <thead class="thead-dark">
+	<tr>
+          <th scope="col">Customer ID</th>
+                  <th scope="col">Customer Name</th>
+         <th scope="col">Customer CSV</th>
+        <th scope="col">Campaign Name</th>
+
+
+	</tr>
+
+      </thead>
+  <tbody>
+
+{% for i in customer %}
+
+
+	<tr>
+        <td>{{i.id}}</td>
+        <td>{{i.name}}</td>
+
+        {% for emails in i.customer_email.all %}
+
+		<td>{{emails}}</td>
+
+
+        {% endfor %}
+
+
+        {% for camp in i.customer_camp.all %}
+        <td>{{camp}}</td>
+        {% endfor %}
+	</tr>
+
+
+
+             	{% endfor %}
+  </tbody>
+</table>
+
+    </div>
+
+</div>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="container-fluid">
+
+
+    <div class="container">
+          <br><br>
+             <h1 class="display-4  text-center">Customer And CSV Information</h1>
+        <br><br>
+
+
+
+<table class="table">
+    <thead class="thead-dark">
+	<tr>
+        <th scope="col">Customer ID</th>
+                  <th scope="col">Customer Name</th>
+         <th scope="col">Customer CSV</th>
+
+
+
+	</tr>
+
+      </thead>
+  <tbody>
+
+{% for i in customer %}
+
+
+	<tr>
+        <td>{{i.id}}</td>
+        <td>{{i.name}}</td>
+
+        {% for emails in i.customer_email.all %}
+		<td>{{emails}}</td>
+
+        {% endfor %}
+
+	</tr>
+
+             	{% endfor %}
+  </tbody>
+</table>
+
+    </div>
+
+</div>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="container-fluid">
+
+
+    <div class="container">
+          <br><br>
+             <h1 class="display-4  text-center">Customer And Campaign Information</h1>
+        <br><br>
+
+
+
+<table class="table">
+    <thead class="thead-dark">
+	<tr>
+                  <th scope="col">Customer Name</th>
+        <th scope="col">Campaign Name</th>
+
+
+	</tr>
+
+      </thead>
+  <tbody>
+
+{% for i in customer %}
+
+
+	<tr>
+        <td>{{i.name}}</td>
+
+         {% for camp in i.customer_camp.all %}
+        <td>{{camp}}</td>
+        {% endfor %}
+
+	</tr>
+
+
+
+             	{% endfor %}
+  </tbody>
+</table>
+
+    </div>
+
+</div>
+
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br>
+
+<div class="container-fluid">
+
+
+    <div class="container">
+          <br><br>
+             <h1 class="display-4  text-center">Campaign Information</h1>
+        <br><br>
+
+
+
+<table class="table">
+    <thead class="thead-dark">
+	<tr>
+        <th scope="col">User</th>
+                  <th scope="col">Campaign Name</th>
+         <th scope="col">Sender Name</th>
+         <th scope="col">sender_email</th>
+        <th scope="col">email_subject</th>
+
+          <th scope="col">Email list name</th>
+          <th scope="col">Email file link</th>
+
+	</tr>
+
+      </thead>
+  <tbody>
+
+
+   {% for i in email %}
+	<tr>
+        <td>{{i.user}}</td>
+		<td>{{i.mycampaign}}</td>
+        <td>{{i.mycampaign.sender_name}}</td>
+        <td>{{i.mycampaign.sender_email}}</td>
+        <td>{{i.mycampaign.email_subject}}</td>
+        <td>{{i.name}}</td>
+        <td>
+
+        </td>
+
+	</tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+    </div>
+
+</div>
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+</body>
+
+</html>
